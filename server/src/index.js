@@ -30,7 +30,7 @@ app.use((error, req, res, next) => {
     res.status(statusCode);
     res.json({
         message: error.message,
-        stack: error.stack // should not do this in prod
+        stack: process.env.NODE.ENV === 'production' ? '🥞' : error.stack // should not do this in prod --> only show in prod --> security risk
     })
 });
 
