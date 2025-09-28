@@ -25,6 +25,7 @@ app.use((req, res, next) => {
     next(error); // will go on to the next middleware --. error passed in so it will go into the error handler
 });
 
+// error handling middleware
 app.use((error, req, res, next) => {
     const statusCode = res.statusCode === 200 ? 500 : res.statusCode; // check if the status code is 200 --> means something else fucked up
     res.status(statusCode);
