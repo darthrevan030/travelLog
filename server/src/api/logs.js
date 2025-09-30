@@ -20,23 +20,35 @@ router.post('/', async (req, res, next) => {
 
 
 // update an entry
-router.put('/', async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
     try {
-        
+        const updatedLog = await LogEntry.findByIdAndUpdate(
+            req.params.id, 
+            req.body,
+        {
+            new: true,
+            runValidators: true
+        });
+
+        if (!updatedLog) {
+            return res.status(404).json({ message: "Log Entry Not Found" });
+        }
+
+        res.status(200).json({ message: "Entry Updated" });
     } catch (error) {
+        if (error.name === 'ValidationError'){
+            res.status(422);
+        }
         next(error);
     }
 });
 
-// get all the entries
+// get (read) all the entries
 router.get('/', async (req, res, next) => {
     try {
         const logEntries = await LogEntry.find({});
         res.json(logEntries);
     } catch (error) {
-        // if (error.name === 'ValidationError'){
-        //     res.status(422);
-        // }
         next(error);
     }
     
