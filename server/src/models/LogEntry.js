@@ -59,7 +59,9 @@ const logEntrySchema = new Schema({
         votes: Number,
         favs: Number
     }, 
-    timestamps: true
+    timestamps: true,
+
+    
 });
 
 const LogEntry = mongoose.model('LogEntry', logEntrySchema);
