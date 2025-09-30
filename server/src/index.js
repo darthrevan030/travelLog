@@ -12,12 +12,17 @@ const logs = require('./api/logs');
 const app = express();
 
 mongoose.connect(process.env.DATABASE_URL);
+const db = process.env.DATABASE_URL
+app.listen(db, () => {
+    console.log(`Listening at ${db}`);
+});
 
 app.use(morgan('common'));
 app.use(helmet());
 app.use(cors({
     origin: process.env.CORS_ORIGIN,
 }));
+app.use(express.json());
 
 
 // middleware

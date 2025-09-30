@@ -52,17 +52,10 @@ const logEntrySchema = new Schema({
         max: 180,
     },
     image: requiredString,
-    body: String,
-    comments: String,
-    hidden: Boolean,
-    meta: {
-        votes: Number,
-        favs: Number
+    comments: [{body: String, date: Date}]
     }, 
-    timestamps: true,
-
-    
-});
+    { timestamps: true }
+);
 
 const LogEntry = mongoose.model('LogEntry', logEntrySchema);
 
