@@ -28,12 +28,13 @@ const requiredNumber = {
 
 const logEntrySchema = new Schema({
     title: requiredString,
+    author: requiredString,
     visitDate: {
         type: Date,
         required: true
     },
     description: requiredString,
-    author: requiredString,
+    comments: String,
     rating: {
         type: Number, 
         min: 0, 
@@ -52,7 +53,6 @@ const logEntrySchema = new Schema({
         max: 180,
     },
     image: requiredString,
-    comments: [{body: String, date: Date}]
     }, 
     { timestamps: true }
 );
