@@ -1,9 +1,11 @@
-import './styles.css';
+import '../styles.css';
 import "leaflet/dist/leaflet.css";
 
 import { useState, useEffect } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import { Icon } from 'leaflet';
+
+import * as mapConfig from '../utils/mapConfig';
+import * as api from '../services/api';
 
 
 export default function App() {
@@ -14,36 +16,20 @@ export default function App() {
   // useEffect runs when component loads
   useEffect(() => {
     // define async function to fetch data
-    const fetchLogs = async () => {
+    const getLogs = async () => {
       try {
-        // Step 1: make request to backend
-        const response = await fetch('http://localhost:1337/api/logs');
-        // Step 2: Convert response data to json
-        const data = await response.json();
-        // Step 3: update state
+        const data = await api.fetchLogs();
         setLogs(data);
-        
-        // log the response data
-        console.log("🚀 ~ fetchLogs ~ data:", data)
-    
       } catch (error) {
-        // Step 4: Error Handling
-        console.error('Error fetching logs: ', error);
-      } 
+        console.error("Error fetching logs:", error);
+      }
     };
 
-    // call the function
-    fetchLogs();
-  }, []); // empty array for 2nd parameter means "run once when component loads"
-
-  // custom marker for the locations
-  const customIcon = new Icon({
-    iconUrl: "/icons/marker-icon.png",
-    iconSize: [38, 38] // size of icon
-  })
+    getLogs();
+  }, []); // empty array for 2nd parameter means "run once when component loads"  
 
   return (
-    <MapContainer center={[1.351538170692347, 103.80731437210247]} zoom={12}>
+    <MapContainer center={mapConfig.defaultCenter} zoom={mapConfig.defaultZoom} scrollWheelZoom={true} style={{ height: "100vh", width: "100vw" }}>
       <TileLayer
         attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -52,7 +38,7 @@ export default function App() {
       {/* loop through fetched logs and create marker for each */}
       {logs.map(log => (
         <Marker
-          icon={customIcon} // use the custom marker icon
+          icon={mapConfig.customIcon} // use the custom marker icon
           key={log._id}
           position={[log.latitude, log.longitude]}
         >
