@@ -36,6 +36,7 @@ export default function App() {
     fetchLogs();
   }, []); // empty array for 2nd parameter means "run once when component loads"
 
+  // custom marker for the locations
   const customIcon = new Icon({
     iconUrl: "/icons/marker-icon.png",
     iconSize: [38, 38] // size of icon
@@ -51,12 +52,12 @@ export default function App() {
       {/* loop through fetched logs and create marker for each */}
       {logs.map(log => (
         <Marker
-          icon={customIcon}
+          icon={customIcon} // use the custom marker icon
           key={log._id}
           position={[log.latitude, log.longitude]}
         >
           <Popup>
-            {log.title}
+            <h3>{log.title}</h3>
           </Popup>
 
         </Marker>
