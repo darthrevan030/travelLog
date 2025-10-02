@@ -39,16 +39,41 @@
 .sidebar {
   position: absolute;
   top: 0;
-  right: 0;
-  width: 400px;
+  left: 0;
+  width: 50%;
   height: 100vh;
   background: white;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  overflow-y: auto;
+  overflow-y: scroll;
   z-index: 1000; /* Important! Must be above map */
+
+  animation: slideInFade 0.5s ease-out;
+}
+
+@keyframes slideInFade {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  
 }
 
 .close-button{
     font-weight: bold;
+    font-size: 25px;
+    position: absolute;
+    right: 0;
+    margin: 10px;
+    color: black;
+    padding: 5px;
+    border-width: 1.5px;
+}
+
+.close-button:hover {
+  color: red;
 }

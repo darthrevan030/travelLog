@@ -15,7 +15,11 @@ export default function Sidebar({ log, onClose }){
   return (
       <div className="sidebar">
           <button className='close-button' onClick={onClose}>x</button>
-          <h2>{log.title}</h2>
+          <h1 style={{textAlign:'center', }}>{log.title}</h1>
+          <p>by {log.author}</p>
+          <p>Visited On {formattedDate}</p>
+          <p>{starRating} {log.rating}/10</p>
+          
       </div>
   );
 }
