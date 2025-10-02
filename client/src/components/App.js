@@ -62,11 +62,10 @@ export default function App() {
       </MapContainer>
 
       {/* sidebar component */}
-      {console.log("Sidebar Rendered?", selectedLog != null)}
-      {selectedLog && <Sidebar
+      <Sidebar
       log={selectedLog}
       onClose={() => setSelectedLog(null)}
-      />}
+      />
     </div>
   );
 }

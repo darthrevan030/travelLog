@@ -43,12 +43,16 @@
   width: 50%;
   height: 100vh;
   background: white;
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  overflow-y: scroll;
+  overflow-y: auto;
   z-index: 1000; /* Important! Must be above map */
 
   animation: slideInFade 0.5s ease-out;
+}
+
+.sidebar.closing { 
+  animation: slideOutFade 0.5s ease-in forwards;
 }
 
 @keyframes slideInFade {
@@ -60,7 +64,17 @@
     transform: translateX(0%);
     opacity: 1;
   }
-  
+}
+
+@keyframes slideOutFade {
+  from {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
 }
 
 .close-button{
